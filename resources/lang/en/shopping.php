@@ -61,12 +61,4 @@ return [
         'sendMess' => 'Send us your message',
         'send' => 'Send',
     ],
-
-    'home' => [
-        'home' => 'Home',
-        'login' => 'Login',
-        'register' => 'Register',
-        'dashboard' => 'Dashboard',
-        'logged' => 'You are logged in!',
-    ],
 ];
