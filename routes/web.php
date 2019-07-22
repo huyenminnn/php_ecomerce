@@ -11,17 +11,19 @@
 |
 */
 
-Route::get('/', function () {
+Auth::routes();
+
+Route::get('/', function() {
     return view('shopping_views.home');
 })->name('home');
 
-Auth::routes();
-
-Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function() {
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('admin.showLoginForm');
     Route::post('/login', 'AdminAuth\LoginController@login')->name('admin.login');
     Route::post('/logout', 'AdminAuth\LoginController@logout')->name('admin.logout');
     Route::get('/product', function() {
         return view('manager_views.product');
-    })->name('manager');
+    })->name('admin.manager')->middleware('admin.auth');
 });
+
+

@@ -33,8 +33,8 @@
     <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-                <form class="login100-form validate-form" action="#" method="POST">
-                    @csrf
+                <form class="login100-form validate-form" action="{{ route('admin.login') }}" method="POST">
+                    {{ csrf_field() }}
                     <span class="login100-form-title p-b-43">
                         {{ trans('manager.layout.login1') }}
                     </span>
@@ -45,14 +45,14 @@
                         </p>
                     @endif
 
-                    <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+                    <div class="wrap-input100 validate-input" data-validate = "">
                         <input id="email" class="input100 {{ $errors->has('email') ? ' is-invalid' : '' }}" type="email" name="email" value="{{ old('email') }}" required autofocus>
                         <span class="focus-input100"></span>
                         <span class="label-input100">{{ trans('manager.layout.email') }}</span>
                     </div>
 
 
-                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <div class="wrap-input100 validate-input" data-validate="">
                         <input id="password" class="input100 {{ $errors->has('password') ? ' is-invalid' : '' }}" type="password" name="password" required="">
 
                         <span class="focus-input100"></span>
@@ -79,7 +79,7 @@
 
 
                     <div class="container-login100-form-btn">
-                        <button class="login100-form-btn">
+                        <button class="login100-form-btn" type="submit">
                             {{ trans('manager.layout.login') }}
                         </button>
 

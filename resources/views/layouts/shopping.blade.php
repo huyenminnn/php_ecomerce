@@ -114,7 +114,7 @@
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button>{{ trans('shopping.user.logout') }}</button>
+                                    <button type="submit">{{ trans('shopping.user.logout') }}</button>
                                 </form>
                             </li>
                         @else

@@ -18,7 +18,7 @@ class RedirectIfAdminAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard('admin')->check()) {
-            return redirect()->route('admin.product');
+            return redirect()->route('admin.manager');
         }
 
         return $next($request);

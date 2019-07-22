@@ -5,6 +5,8 @@
 /vendor
 /public/manager_assets
 /public/shopping_assets
+/public/js
+/public/css
 .env
 .phpunit.result.cache
 Homestead.json

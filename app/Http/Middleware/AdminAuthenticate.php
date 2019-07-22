@@ -16,10 +16,10 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next)
     {
-        //neu chua dang nhap
         if (!Auth::guard('admin')->check()) {
-            return route('admin.login');
+            return redirect()->route('admin.showLoginForm');
         }
+
         return $next($request);
     }
 }
