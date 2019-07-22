@@ -62,11 +62,23 @@ return [
         'send' => 'Send',
     ],
 
-    'home' => [
-        'home' => 'Home',
+    'user' => [
+        'Registration' => 'Registration',
+        'RegistrationForm' => 'Registration Form',
+        'name' => 'Your name',
+        'email' => 'Email',
+        'password' => 'Password',
+        'comfpassword' => 'Confirm Password',
+        'mobile' => 'Mobile',
+        'address' => 'Address',
+        'registerNow' => 'Register Now',
         'login' => 'Login',
-        'register' => 'Register',
-        'dashboard' => 'Dashboard',
-        'logged' => 'You are logged in!',
+        'logout' => 'Logout',
+        'signIn' => 'Sign In',
+        'signUp' => 'Sign Up',
+        'loginWith' => 'Or login with',
+        'errorEmail' => 'Enter your email',
+        'errorPass' => 'Enter password',
+        'forgetPass' => 'Forgot Your Password?',
     ],
 ];
