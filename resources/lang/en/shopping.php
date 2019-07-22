@@ -61,4 +61,23 @@ return [
         'sendMess' => 'Send us your message',
         'send' => 'Send',
     ],
+
+    'user' => [
+        'Registration' => 'Registration',
+        'RegistrationForm' => 'Registration Form',
+        'name' => 'Your name',
+        'email' => 'Email',
+        'password' => 'Password',
+        'comfpassword' => 'Confirm Password',
+        'mobile' => 'Mobile',
+        'address' => 'Address',
+        'registerNow' => 'Register Now',
+        'login' => 'Login',
+        'logout' => 'Logout',
+        'signIn' => 'Sign In',
+        'signUp' => 'Sign Up',
+        'loginWith' => 'Or login with',
+        'errorEmail' => 'Enter your email',
+        'errorPass' => 'Enter password',
+    ],
 ];

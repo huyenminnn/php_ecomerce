@@ -124,9 +124,16 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-usermenu pull-right">
                                     <li>
-                                        <a href="#">
-                                            <i class="fa fa-sign-out pull-right"></i> {{ trans('manager.layout.logout') }}
-                                        </a>
+                                        @if(Auth::guard('admin')->check())
+                                        <li>
+                                            <form action="{{ route('admin.logout') }}" method="POST">
+                                                @csrf
+                                                <button type="submit" class="btn">
+                                                    <i class="fa fa-sign-out pull-right"></i> {{ trans('manager.layout.logout') }}
+                                                </button>
+                                            </form>
+                                        </li>
+                                        @endif
                                     </li>
                                 </ul>
                             </li>

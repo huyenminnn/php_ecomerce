@@ -9,6 +9,12 @@ return [
         'order' => 'Orders',
         'suggestProduct' => 'Suggest Product',
         'logout' => ' Logout',
+        'login' => ' Login',
+        'login1' => ' Login to continue',
+        'email' => 'Email',
+        'password' => 'Password',
+        'error' => 'Email or password is incorrect!',
+        'remember' => 'Remember me',
     ],
 
     'product' => [

@@ -17,7 +17,7 @@ class CreateSuggestProductsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->string('reply')->nullable();
             $table->integer('admin_id')->nullable();

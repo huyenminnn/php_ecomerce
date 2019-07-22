@@ -19,8 +19,8 @@ class CreateProductDetailsTable extends Migration
             $table->double('price');
             $table->string('size', 3)->nullable();
             $table->integer('quantity');
-            $table->string('color', 15);
-            $table->string('description');
+            $table->string('color', 15)->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

@@ -1,77 +1,57 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ trans('shopping.user.Registration') }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+        <!-- MATERIAL DESIGN ICONIC FONT -->
+        <link rel="stylesheet" href="{{ asset('shopping_assets/register/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css') }}">
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
+        <!-- STYLE CSS -->
+        <link rel="stylesheet" href="{{ asset('shopping_assets/register/css/style.css') }}">
+    </head>
 
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+    <body>
 
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+        <div class="wrapper" id="main">
+            <div class="inner" style="padding-top: 25px;">
+                <form action="{{ route('register') }}" method="POST">
+                    <h3>{{ trans('shopping.user.RegistrationForm') }}</h3>
+                    @csrf
+                    <div class="form-wrapper">
+                        <label for="">{{ trans('shopping.user.name') }} <span class="req">*</span> </label>
+                        <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus>
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="">{{ trans('shopping.user.email') }} <span class="req">*</span> </label>
+                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                    </div>
+                    <div class="form-group">
 
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-wrapper">
+                            <label for="">{{ trans('shopping.user.password') }} <span class="req">*</span> </label>
+                            <input type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-wrapper">
+                            <label for="">{{ trans('shopping.user.comfpassword') }} <span class="req">*</span> </label>
+                            <input type="password" class="form-control" name="password_confirmation" required>
                         </div>
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="">{{ trans('shopping.user.mobile') }} <span class="req">*</span> </label>
+                        <input type="text" class="form-control" required="" name="mobile">
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="">{{ trans('shopping.user.address') }} <span class="req">*</span> </label>
+                        <input type="text" class="form-control" required="" name="address">
+                    </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    <button type="submit">{{ trans('shopping.user.registerNow') }}</button>
+                </form>
             </div>
         </div>
-    </div>
-</div>
-@endsection
+
+    </body>
+</html>
