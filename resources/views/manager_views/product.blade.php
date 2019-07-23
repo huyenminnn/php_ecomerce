@@ -37,7 +37,6 @@
                                     <th>{{ trans('manager.product.name') }}</th>
                                     <th>{{ trans('manager.product.thumbnail') }}</th>
                                     <th>{{ trans('manager.product.category') }}</th>
-                                    <th>{{ trans('manager.product.price') }}</th>
                                     <th>{{ trans('manager.product.creator') }}</th>
                                     <th>{{ trans('manager.product.createAt') }}</th>
                                     <th>{{ trans('manager.product.action') }}</th>
@@ -50,4 +49,45 @@
         </div>
     </div>
 </div>
+
+{{-- Add product --}}
+<div class="modal fade" id="modal-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" id="form-add" method="POST" role="form" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ trans('manager.product.add') }}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="">{{ trans('manager.product.name') }}<span class="required"> *</span></label>
+                        <input type="text" class="form-control" id="name-add" name="name">
+
+                        <label for="">{{ trans('manager.product.code') }}<span class="required"> *</span></label>
+                        <input type="text" class="form-control" id="product-code-add" name="product_code">
+
+                        <label for="">{{ trans('manager.product.category') }}<span class="required"> *</span></label>
+                        <input type="text" class="form-control" id="category-add" name="category">
+
+                        <label for="">{{ trans('manager.product.slug') }}<span class="required"> *</span></label>
+                        <input type="text" class="form-control" id="slug-add" name="slug">
+
+                        <label for="">{{ trans('manager.product.description') }}</label>
+                        <textarea type="text" class="form-control" id="description-add" name="description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('manager.layout.close') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ trans('manager.layout.add') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('script')
+<script type="text/javascript" src="{{ asset('js/product.js') }}"></script>
 @endsection

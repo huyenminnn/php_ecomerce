@@ -21,7 +21,6 @@
     <div class="container-login100" id="mainContent">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
             <form class="login100-form validate-form" action="{{ route('login') }}" method="POST">
-
                 <span class="login100-form-title p-b-37">
                     {{ trans('shopping.user.signIn') }}
                 </span>
@@ -33,8 +32,8 @@
                     <span class="focus-input100"></span>
                 </div>
 
-                <div class="wrap-input100 validate-input m-b-25" data-validate = "{{ trans('shopping.user.signIn') }}">
-                    <input class="input100" type="password" name="password" placeholder="{{ trans('shopping.user.errorPass') }}">
+                <div class="wrap-input100 validate-input m-b-25" data-validate = "{{ trans('shopping.user.errorPass') }}">
+                    <input class="input100" type="password" name="password" placeholder="{{ trans('shopping.user.password') }}">
                     <span class="focus-input100"></span>
                 </div>
 

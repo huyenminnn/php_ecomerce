@@ -16,6 +16,12 @@ return [
         'error' => 'Email or password is incorrect!',
         'remember' => 'Remember me',
         'seeAll' => 'See All Alerts',
+        'detail' => 'Detail',
+        'edit' => 'Edit',
+        'delete' => 'Delete',
+        'add_pic' => 'Add pic',
+        'add' => 'Add',
+        'close' => 'Close',
     ],
 
     'product' => [
@@ -26,6 +32,8 @@ return [
         'name' => 'Name',
         'thumbnail' => 'Thumbnail',
         'category' => 'Category',
+        'slug' => 'Slug',
+        'description' => 'Description',
         'price' => 'Price (VND)',
         'creator' => 'Creator',
         'createAt' => 'Create At',

@@ -1,0 +1,22 @@
+{
+  "name": "php_ecomerce",
+  "description": "",
+  "main": "",
+  "authors": [
+    "huyenminnn <huyenttm.13@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/huyenminnn/php_ecomerce",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "shopTemplate": "https://github.com/huyenminnn/shopTemplate.git"
+  }
+}
