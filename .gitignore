@@ -5,9 +5,12 @@
 /vendor
 /public/manager_assets
 /public/shopping_assets
+/public/css
+/public/js
 .env
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+/public/bower_components
