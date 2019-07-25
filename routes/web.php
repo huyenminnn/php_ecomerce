@@ -12,9 +12,10 @@
 */
 Auth::routes();
 
-Route::get('/', function() {
-    return view('shopping_views.home');
-})->name('home');
+Route::name('shop.')->group(function() {
+    Route::get('/', 'ShopController@index')->name('index');
+    Route::get('/product/{slug}', 'ShopController@showProduct')->name('product');
+});
 
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('admin.showLoginForm');
