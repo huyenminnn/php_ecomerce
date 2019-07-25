@@ -1,7 +1,6 @@
 @extends('layouts.shopping')
 
 @section('content')
-
     <section class="slide1">
         <div class="wrap-slick1">
             <div class="slick1">

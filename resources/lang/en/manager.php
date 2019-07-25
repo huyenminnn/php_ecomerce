@@ -22,6 +22,9 @@ return [
         'add_pic' => 'Add pic',
         'add' => 'Add',
         'close' => 'Close',
+        'errorPage' => 'Sorry but we couldn\'t find this page',
+        'noPage' => 'This page you are looking for does not exist!',
+        'Error' => 'Error',
     ],
 
     'product' => [

@@ -54,6 +54,7 @@ return [
         'feeShip' => 'Calculate Shipping',
         'updateTotal' => 'Update Totals',
         'checkout' => 'Proceed to Checkout',
+        'nothing' => 'Nothing in your cart! Let\'s shopping!' ,
     ],
 
     'suggest' => [
