@@ -45,6 +45,6 @@ class LoginController extends Controller
      */
     protected function loggedOut()
     {
-        return redirect()->route('home');
+        return redirect()->route('shop.index');
     }
 }

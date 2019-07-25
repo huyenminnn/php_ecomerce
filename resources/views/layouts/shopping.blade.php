@@ -62,7 +62,7 @@
                     <nav class="menu">
                         <ul class="main_menu">
                             <li class="sale-noti">
-                                <a href="#">{{ trans('shopping.layout.home') }}</a>
+                                <a href="">{{ trans('shopping.layout.home') }}</a>
                             </li>
 
                             <li>
@@ -92,7 +92,9 @@
                 <div class="header-icons">
                     <a href="#" class="header-wrapicon1 dis-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/icons/icon-header-01.png') }}" class="header-icon1" alt="ICON">
-                        <span class=""> </span>
+                        @if(Auth::guard()->check())
+                            <span class="">{{ Auth::user()->name }}</span>
+                        @endif
                     </a>
                     <ul class="dropdown-menu pull-right">
                         @if(Auth::guard()->check())
