@@ -10,11 +10,23 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function() {
+    return view('shopping_views.home');
+})->name('home');
+
+Route::prefix('admin')->group(function() {
+    Route::get('/login', 'AdminAuth\LoginController@showLoginForm')->name('admin.showLoginForm');
+    Route::post('/login', 'AdminAuth\LoginController@login')->name('admin.login');
+    Route::post('/logout', 'AdminAuth\LoginController@logout')->name('admin.logout');
+
+    Route::middleware('admin.auth')->group(function() {
+        Route::get('/getProduct','ProductController@getData')->name('products.getData');
+        Route::resource('products', 'ProductController');
+        Route::resource('users', 'UserController');
+        Route::get('/getOrder','OrderController@getData')->name('orders.getData');
+        Route::resource('orders', 'OrderController');
+        Route::resource('suggest_products', 'SuggestProductController');
+    });
+});

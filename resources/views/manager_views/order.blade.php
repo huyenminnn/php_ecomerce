@@ -29,14 +29,11 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table id="productTable" class="table table-striped table-bordered">
+                        <table id="orderTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>{{ trans('manager.order.code') }}</th>
                                     <th>{{ trans('manager.order.total') }}</th>
-                                    <th>{{ trans('manager.order.customer') }}</th>
-                                    <th>{{ trans('manager.order.address') }}</th>
-                                    <th>{{ trans('manager.order.mobile') }}</th>
                                     <th>{{ trans('manager.order.status') }}</th>
                                     <th>{{ trans('manager.order.delivery') }}</th>
                                     <th>{{ trans('manager.order.createAt') }}</th>
@@ -50,4 +47,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript" src="{{ asset('js/order.js') }}"></script>
 @endsection
