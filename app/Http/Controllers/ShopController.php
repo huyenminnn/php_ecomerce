@@ -17,7 +17,23 @@ class ShopController extends Controller
     public function show($slug)
     {
         $product = Product::where('slug', $slug)->first();
-
-        return view('shopping_views.product_detail', ['product' => $product]);
+        if (!$product) {
+            return view('layouts.error');
+        } else {
+            $product_details = $product->productDetail;
+            $sizes = [];
+            $colors = [];
+            foreach ($product_details as $detail) {
+                $size = $detail->size;
+                if (!in_array($size, $sizes)) {
+                    $sizes[] = $size;
+                }
+                $color = $detail->color;
+                if (!in_array($color, $colors)) {
+                    $colors[] = $color;
+                }
+            }
+            return view('shopping_views.product_detail', ['product' => $product, 'sizes' => $sizes, 'colors' => $colors]);
+        }
     }
 }

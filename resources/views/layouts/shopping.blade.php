@@ -20,6 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/lightbox2/css/lightbox.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 <body class="animsition">
 
@@ -62,7 +63,7 @@
                     <nav class="menu">
                         <ul class="main_menu">
                             <li class="sale-noti">
-                                <a href="">{{ trans('shopping.layout.home') }}</a>
+                                <a href="{{ route('shop.index') }}">{{ trans('shopping.layout.home') }}</a>
                             </li>
 
                             <li>
@@ -136,7 +137,7 @@
 
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
-                                    <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
+                                    <a href="{{ route('shop.cart') }}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
                                         {{ trans('shopping.layout.checkout') }}
                                     </a>
                                 </div>
@@ -407,8 +408,7 @@
 
     <!-- Container Selection1 -->
     <div id="dropDownSelect1"></div>
-
-
+    <div id="dropDownSelect2"></div>
 
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/animsition/js/animsition.min.js') }}"></script>
@@ -420,7 +420,9 @@
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/countdowntime/countdowntime.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/lightbox2/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript" charset="utf-8" async defer></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/js/extra.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/shopping_assets/js/main.js') }}"></script>
+    @yield('script')
 </body>
 </html>

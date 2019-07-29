@@ -14,7 +14,11 @@ Auth::routes();
 
 Route::name('shop.')->group(function() {
     Route::get('/', 'ShopController@index')->name('index');
-    Route::get('/product/{slug}', 'ShopController@showProduct')->name('product');
+    Route::get('/product/{slug}', 'ShopController@show')->name('product');
+    Route::middleware('auth')->group(function() {
+        Route::post('/addToCart/{id}', 'CartController@addToCart');
+        Route::get('/cart', 'CartController@index')->name('cart');
+    });
 });
 
 Route::prefix('admin')->group(function() {

@@ -51,8 +51,10 @@
                     </div>
 
                     <div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-                        <select class="selection-2" name="size">
-                            <option></option>
+                        <select class="selection-2" name="size" id="size">
+                            @foreach($sizes as $size)
+                                <option value="{{ $size }}">{{ $size }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -63,8 +65,10 @@
                     </div>
 
                     <div class="rs2-select2 rs3-select2 bo4 of-hidden w-size16">
-                        <select class="selection-2" name="color">
-                            <option></option>
+                        <select class="selection-2" name="color" id="color">
+                            @foreach($colors as $color)
+                                <option value="{{ $color }}">{{ $color }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -83,8 +87,8 @@
                             </button>
                         </div>
 
-                        <div class="btn-addcart-product-detail size9 trans-0-4 m-t-10 m-b-10">
-                            <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4">
+                        <div class="size9 trans-0-4 m-t-10 m-b-10">
+                            <button class="flex-c-m sizefull bg1 bo-rad-23 hov1 s-text1 trans-0-4" data-id="{{ $product->id }}" id="addToCart">
                                 {{ trans('shopping.home.addToCart') }}
                             </button>
                         </div>
@@ -108,5 +112,8 @@
                 </div>
             </div>
 </div>
+@endsection
 
+@section('script')
+    <script src="/js/cart.js" type="text/javascript"></script>
 @endsection
