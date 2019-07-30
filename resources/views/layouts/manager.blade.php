@@ -25,6 +25,7 @@
     <link href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 </head>
 
 <body class="nav-md">
@@ -195,6 +196,8 @@
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
 
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/build/js/custom.min.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
     @yield('script')
 </body>

@@ -29,12 +29,14 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table id="productTable" class="table table-striped table-bordered">
+                        <table id="suggestProductTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>{{ trans('manager.suggest.user') }}</th>
                                     <th>{{ trans('manager.suggest.name') }}</th>
-                                    <th>{{ trans('manager.suggest.category') }}</th>
+                                    <th>{{ trans('manager.suggest.status') }}</th>
+                                    <th>{{ trans('manager.suggest.reply') }}</th>
+                                    <th>{{ trans('manager.suggest.admin') }}</th>
                                     <th>{{ trans('manager.suggest.createAt') }}</th>
                                     <th>{{ trans('manager.suggest.action') }}</th>
                                 </tr>
@@ -46,4 +48,30 @@
         </div>
     </div>
 </div>
+<div class="modal fade modal-reply">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" id="form-reply" method="POST" role="form" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ trans('manager.suggest.replyProduct') }}</h4>
+                </div>
+                <input type="hidden" name="suggest" id="suggest_id">
+                <div class="modal-body">
+                    <label for="">{{ trans('manager.suggest.message') }}</label>
+                    <textarea type="text" class="form-control" id="reply" name="reply" rows="3"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">{{ trans('manager.layout.reply') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('script')
+<script type="text/javascript" src="{{ asset('js/suggest.js') }}"></script>
 @endsection

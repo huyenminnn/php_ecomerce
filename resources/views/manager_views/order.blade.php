@@ -47,6 +47,29 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade modal-delete">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="" id="form-delete" method="POST" role="form" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">{{ trans('manager.order.reason_reject') }}</h4>
+                </div>
+                <input type="hidden" name="order_id" id="order_id">
+                <div class="modal-body">
+                    <label for="">{{ trans('manager.order.reason_reject') }}</label>
+                    <textarea type="text" class="form-control" id="reason_reject" name="reason_reject" rows="3"></textarea>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger">{{ trans('manager.layout.delete') }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
