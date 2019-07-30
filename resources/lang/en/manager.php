@@ -25,6 +25,11 @@ return [
         'errorPage' => 'Sorry but we couldn\'t find this page',
         'noPage' => 'This page you are looking for does not exist!',
         'Error' => 'Error',
+        'confirm' => 'Confirm',
+        'notConfirm' => 'Not Confirm',
+        'reply' => 'Reply',
+        'replied' => 'Replied',
+        'notReplied' => 'Not Reply',
     ],
 
     'product' => [
@@ -55,6 +60,8 @@ return [
         'delivery' => 'Delivery Unit',
         'createAt' => 'Create At',
         'action' => 'Action',
+        'reason_reject' => 'Reason Reject',
+        'canceled' => 'Canceled',
     ],
 
     'user' => [
@@ -72,8 +79,12 @@ return [
         'suggest' => 'SUGGEST PRODUCTS',
         'name' => 'Name product',
         'user' => 'User',
-        'category' => 'Category',
+        'status' => 'Status',
+        'reply' => 'Reply',
+        'admin' => 'Admin Reply',
         'createAt' => 'Create At',
         'action' => 'Action',
+        'message' => 'Message',
+        'replyProduct' => 'Reply Suggest Product',
     ],
 ];

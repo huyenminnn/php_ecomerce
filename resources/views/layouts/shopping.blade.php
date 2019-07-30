@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/lightbox2/css/lightbox.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/css/main.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/toastr/toastr.min.css') }}">
 </head>
 <body class="animsition">
 
@@ -83,7 +83,7 @@
                             </li>
 
                             <li>
-                                <a href="#">{{ trans('shopping.layout.contact') }}</a>
+                                <a href={{ route('shop.suggest_products.index') }}>{{ trans('shopping.layout.contact') }}</a>
                             </li>
                         </ul>
                     </nav>
@@ -100,9 +100,12 @@
                     <ul class="dropdown-menu pull-right">
                         @if(Auth::guard()->check())
                             <li>
+                                <a href="{{ route('shop.history') }}" class="btn">{{ trans('shopping.history.historyOrder') }}</a>
+                            </li>
+                            <li>
                                 <form action="{{ route('logout') }}" method="POST">
                                     @csrf
-                                    <button type="submit">{{ trans('shopping.user.logout') }}</button>
+                                    <button type="submit" class="btn">{{ trans('shopping.user.logout') }}</button>
                                 </form>
                             </li>
                         @else
@@ -129,16 +132,12 @@
 
                             <div class="header-cart-buttons">
                                 <div class="header-cart-wrapbtn">
-                                    <!-- Button -->
-                                    <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        {{ trans('shopping.layout.cart') }}
-                                    </a>
                                 </div>
 
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
                                     <a href="{{ route('shop.cart') }}" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        {{ trans('shopping.layout.checkout') }}
+                                        {{ trans('shopping.layout.cart') }}
                                     </a>
                                 </div>
                             </div>
@@ -183,16 +182,12 @@
 
                             <div class="header-cart-buttons">
                                 <div class="header-cart-wrapbtn">
-                                    <!-- Button -->
-                                    <a href="cart.html" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        {{ trans('shopping.layout.cart') }}
-                                    </a>
                                 </div>
 
                                 <div class="header-cart-wrapbtn">
                                     <!-- Button -->
                                     <a href="#" class="flex-c-m size1 bg1 bo-rad-20 hov1 s-text1 trans-0-4">
-                                        {{ trans('shopping.layout.checkout') }}
+                                        {{ trans('shopping.layout.cart') }}
                                     </a>
                                 </div>
                             </div>
@@ -261,7 +256,7 @@
                     </li>
 
                     <li class="item-menu-mobile">
-                        <a href="contact.html">{{ __('shopping.layout.contact') }}</a>
+                        <a href={{ route('shop.suggest_products.index') }}>{{ __('shopping.layout.contact') }}</a>
                     </li>
                 </ul>
             </nav>
@@ -420,9 +415,10 @@
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/countdowntime/countdowntime.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/lightbox2/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/toastr/toastr.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/js/extra.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/shopping_assets/js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/numeral.min.js') }}"></script>
     @yield('script')
 </body>
 </html>
