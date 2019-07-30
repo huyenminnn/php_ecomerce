@@ -20,7 +20,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/lightbox2/css/lightbox.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/css/util.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/shopping_assets/css/main.css') }}">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/toastr/toastr.min.css') }}">
 </head>
 <body class="animsition">
 
@@ -100,7 +100,11 @@
                     <ul class="dropdown-menu pull-right">
                         @if(Auth::guard()->check())
                             <li>
+<<<<<<< HEAD
                                 <a href="{{ route('shop.history') }}" class="btn">History order</a>
+=======
+                                <a href="{{ route('shop.history') }}" class="btn">{{ trans('shopping.history.historyOrder') }}</a>
+>>>>>>> 54eb8d245c2e1cdf6ff7b7158f1f3ab5c8d345ad
                             </li>
                             <li>
                                 <form action="{{ route('logout') }}" method="POST">
@@ -415,10 +419,10 @@
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/countdowntime/countdowntime.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/lightbox2/js/lightbox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/vendor/sweetalert/sweetalert.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" type="text/javascript" charset="utf-8" async defer></script>
+    <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/toastr/toastr.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/js/extra.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/shopping_assets/js/main.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/numeral.min.js') }}"></script>
     @yield('script')
 </body>
 </html>

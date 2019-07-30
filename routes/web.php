@@ -13,7 +13,10 @@
 Auth::routes();
 
 Route::name('shop.')->group(function() {
-    Route::get('/', 'ShopController@index')->name('index');
+    // Route::get('/', 'ShopController@index')->name('index');
+    Route::get('/', function(){
+        return view('shopping_views.email');
+    });
     Route::get('/product/{slug}', 'ShopController@show')->name('product');
     Route::middleware('auth')->group(function() {
         Route::post('/addToCart/{id}', 'CartController@addToCart')->name('addToCart');

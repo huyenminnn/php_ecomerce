@@ -111,5 +111,6 @@ return [
         'username' => 'Username',
         'numPhone' => 'Number Phone',
         'address' => 'Address',
+        'historyOrder' => 'History order',
     ],
 ];

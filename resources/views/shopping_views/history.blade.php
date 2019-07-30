@@ -24,9 +24,9 @@
                         <td class="column-2">{{ number_format($order->total) }}</td>
                         <td class="column-2">{{ date_format($order->created_at, 'H:i d/m/Y') }}</td>
                         <td class="column-2">
-                            @if ($order->status == 0)
+                            @if ($order->status == config('constant.pending'))
                                 <h4><span class="label label-warning">{{ trans('shopping.history.notConfirm') }}</span></h4>
-                            @elseif ($order->status == 1)
+                            @elseif ($order->status == config('constant.confirmed'))
                                 <h4><span class="label label-success">{{ trans('shopping.history.confirm') }}</span></h4>
                             @else
                                 <h4><span class="label label-danger">{{ trans('shopping.history.cancel') }}</span></h4>
@@ -34,7 +34,7 @@
                         </td>
 
                         <td class="column-3"><a class="btn btn-warning detail" target="_blank" href="{{ route('shop.getDetailOrder', ['id' => $order->id]) }}">{{ trans('shopping.history.detail') }}</a></td>
-                        @if ($order->status == 0)
+                        @if ($order->status == config('constant.pending'))
                             <td class="column-3"><button class="btn btn-danger delete" data-id="{{ $order->id }}">{{ trans('shopping.cart.delete') }}</button></td>
                         @endif
                     </tr>

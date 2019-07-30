@@ -1,7 +1,7 @@
 @extends('layouts.shopping')
 
 @section('content')
-<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url({{ asset('bower_components/shopTemplate/shopping_assets/images/heading-pages-01.jpg') }});">
+<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m bg-cart">
     <h2 class="l-text2 t-center">
         {{ trans('shopping.cart.cart') }}
     </h2>
