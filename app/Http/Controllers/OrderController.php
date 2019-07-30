@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductDetail;
 use App\Models\User;
+use App\Models\InfoDelivery;
 use App\Enums\StatusOrder;
 use Session;
 
@@ -79,9 +80,21 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::findOrFail($id);
+        $order = Order::find($id);
+        if (!$order) {
+            return view('layouts.error');
+        } else {
+            $orderDetails = $order->orderDetails;
+            $info_delivery = InfoDelivery::find($order->info_delivery);
+            foreach ($orderDetails as $orderDetail) {
+                $product_detail = ProductDetail::find($orderDetail->product_detail_id);
+                $orderDetail->name = $product_detail->product->name;
+                $orderDetail->size = $product_detail->size;
+                $orderDetail->color = $product_detail->color;
+            }
 
-        return $order;
+            return view('shopping_views.order_detail', ['orderDetails' => $orderDetails, 'info_delivery' => $info_delivery]);
+        }
     }
 
     /**

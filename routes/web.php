@@ -16,8 +16,16 @@ Route::name('shop.')->group(function() {
     Route::get('/', 'ShopController@index')->name('index');
     Route::get('/product/{slug}', 'ShopController@show')->name('product');
     Route::middleware('auth')->group(function() {
-        Route::post('/addToCart/{id}', 'CartController@addToCart');
+        Route::post('/addToCart/{id}', 'CartController@addToCart')->name('addToCart');
+        Route::post('/plus/{id}', 'CartController@plus')->name('plus');
+        Route::post('/minus/{id}', 'CartController@minus')->name('minus');
+        Route::post('/deleteProduct/{id}', 'CartController@deleteProduct')->name('deleteProduct');
         Route::get('/cart', 'CartController@index')->name('cart');
+        Route::post('/getTotal', 'CartController@getTotal')->name('getTotal');
+        Route::post('/checkoutCart', 'OrderController@store')->name('checkout');
+        Route::resource('suggest_products', 'SuggestProductController');
+        Route::get('/history', 'OrderController@getOrder')->name('history');
+        Route::get('/getDetailOrder/{id}', 'OrderController@show')->name('getDetailOrder');
     });
 });
 
@@ -30,8 +38,9 @@ Route::prefix('admin')->group(function() {
         Route::get('/getProduct','ProductController@getData')->name('products.getData');
         Route::resource('products', 'ProductController');
         Route::resource('users', 'UserController');
-        Route::get('/getOrder','OrderController@getData')->name('orders.getData');
-        Route::resource('orders', 'OrderController');
-        Route::resource('suggest_products', 'SuggestProductController');
+        Route::get('/getOrder', 'Admin\OrderController@getData')->name('orders.getData');
+        Route::resource('orders', 'Admin\OrderController');
+        Route::get('/getSuggestProduct', 'Admin\SuggestProductController@getData')->name('suggest.getData');
+        Route::resource('suggest_products', 'Admin\SuggestProductController');
     });
 });
