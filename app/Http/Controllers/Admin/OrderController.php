@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmailOrder;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\ProductDetail;
 use App\Models\User;
+use App\Models\InfoDelivery;
 use App\Enums\StatusOrder;
 
 class OrderController extends Controller
@@ -110,6 +113,16 @@ class OrderController extends Controller
                 'status' => StatusOrder::Confirmed,
                 'admin_id' => Auth::guard('admin')->id(),
             ]);
+
+            $orderDetails = $order->orderDetails;
+            $info_delivery = InfoDelivery::find($order->info_delivery);
+            foreach ($orderDetails as $orderDetail) {
+                $product_detail = ProductDetail::find($orderDetail->product_detail_id);
+                $orderDetail->name = $product_detail->product->name;
+                $orderDetail->size = $product_detail->size;
+                $orderDetail->color = $product_detail->color;
+            }
+            Mail::to($info_delivery->user->email)->send(new SendEmailOrder($info_delivery, $orderDetails, $id));
 
             return $order;
         } else {

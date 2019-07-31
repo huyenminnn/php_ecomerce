@@ -14,7 +14,7 @@ class CartController extends Controller
 {
     public function index()
     {
-        $user = User::find(Auth::user()->id)->first();
+        $user = User::find(Auth::user()->id);
         $info = $user->infoDeliveries;
         $cart = Session::get('cart');
         $total = 0;
