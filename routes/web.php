@@ -26,6 +26,7 @@ Route::name('shop.')->group(function() {
         Route::resource('suggest_products', 'SuggestProductController');
         Route::get('/history', 'OrderController@getOrder')->name('history');
         Route::get('/getDetailOrder/{id}', 'OrderController@show')->name('getDetailOrder');
+        Route::delete('/delete/{id}', 'OrderController@destroy')->name('getDetailOrder');
     });
 });
 

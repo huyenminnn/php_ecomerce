@@ -46,3 +46,7 @@
     </div>
 </section>
 @endsection
+
+@section('script')
+<script src="js/history.js"></script>
+@endsection

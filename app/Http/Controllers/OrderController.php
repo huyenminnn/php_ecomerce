@@ -128,7 +128,8 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Order::find($id)->delete();
+        return ['data' => $id];
     }
 
     // add order details
