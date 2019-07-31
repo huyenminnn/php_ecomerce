@@ -64,7 +64,7 @@ class OrderController extends Controller
         }
 
         $order->total = $total;
-        $order->status = StatusOrder::NotConfirm;
+        $order->status = StatusOrder::Pending;
         $order->info_delivery = $request->info_delivery;
         $order->save();
         Session::forget('cart');
@@ -155,7 +155,7 @@ class OrderController extends Controller
     public function getOrder()
     {
         $orders = collect();
-        $user = User::find(Auth::user()->id)->first();
+        $user = User::find(Auth::user()->id);
         $info_deliveries = $user->infoDeliveries;
         foreach ($info_deliveries as $key => $info) {
             $order = $info->orders;
