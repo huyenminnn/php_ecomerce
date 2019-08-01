@@ -14,6 +14,7 @@ class Product extends Model
     	'admin_id',
     	'description',
     	'thumbnail',
+        'price',
     	'rating',
     ];
 
@@ -35,5 +36,10 @@ class Product extends Model
     public function category()
     {
     	return $this->belongsTo(Category::class);
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class);
     }
 }

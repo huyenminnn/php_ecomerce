@@ -9,6 +9,7 @@ return [
         'blog' => 'Blog',
         'about' => 'About',
         'contact' => 'Contact',
+        'suggest' => 'Suggest Product',
         'cart' => 'View Cart',
         'checkout' => 'Check Out',
         'total' => 'Total: ',
@@ -25,6 +26,9 @@ return [
         'shipping' => 'Shipping',
         'FAQs' => 'FAQs',
         'trackOrder' => 'Track Order',
+        'delete' => 'Delete',
+        'nothing' => 'Nothing!',
+        'category' => 'Categories',
     ],
 
     'home' => [
@@ -41,14 +45,15 @@ return [
     ],
 
     'cart' => [
-        'cart' => 'Cart',
+        'cart' => 'Your Cart',
         'product' => 'Product',
         'price' => 'Price',
         'quantity' => 'Quantity',
         'total' => 'Total',
         'coupon' => 'Apply coupon',
         'updateCart' => 'Update Cart',
-        'cartTotal' => 'Cart Totals',
+        'cartTotal' => 'Cart Total',
+        'totalCart' => 'Total: ',
         'subtotal' => 'Subtotal: ',
         'shipping' => 'Shipping: ',
         'feeShip' => 'Calculate Shipping',
@@ -59,6 +64,7 @@ return [
         'address' => 'Recipient\'s address',
         'mobile' => 'Recipient\'s numberphone',
         'delete' => 'Delete',
+        'vnd' => ' (VND)'
     ],
 
     'suggest' => [

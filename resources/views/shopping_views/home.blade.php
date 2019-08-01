@@ -64,7 +64,7 @@
                         <div class="item-slick2 p-l-15 p-r-15">
                             <div class="block2">
                                 <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                    <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/item-02.jpg') }}" alt="IMG-PRODUCT">
+                                    <img src="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg" alt="IMG-PRODUCT">
 
                                     <div class="block2-overlay trans-0-4">
                                         <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">

@@ -10,21 +10,21 @@
                 <div class="wrap-slick3-dots"></div>
 
                 <div class="slick3">
-                    <div class="item-slick3" data-thumb="{{ asset('bower_components/shopTemplate/shopping_assets/images/thumb-item-01.jpg') }}">
+                    <div class="item-slick3" data-thumb="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg">
                         <div class="wrap-pic-w">
-                            <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/product-detail-01.jpg') }}" alt="IMG-PRODUCT">
+                            <img src="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg" alt="IMG-PRODUCT">
                         </div>
                     </div>
 
-                    <div class="item-slick3" data-thumb="{{ asset('bower_components/shopTemplate/shopping_assets/images/thumb-item-02.jpg') }}">
+                    <div class="item-slick3" data-thumb="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg">
                         <div class="wrap-pic-w">
-                            <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/product-detail-02.jpg') }}" alt="IMG-PRODUCT">
+                            <img src="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg" alt="IMG-PRODUCT">
                         </div>
                     </div>
 
-                    <div class="item-slick3" data-thumb="{{ asset('bower_components/shopTemplate/shopping_assets/images/thumb-item-03.jpg') }}">
+                    <div class="item-slick3" data-thumb="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg">
                         <div class="wrap-pic-w">
-                            <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/product-detail-03.jpg') }}" alt="IMG-PRODUCT">
+                            <img src="http://icdn.dantri.com.vn/thumb_w/640/2017/cayvannienthanh-1514519274210.jpg" alt="IMG-PRODUCT">
                         </div>
                     </div>
                 </div>
@@ -112,8 +112,4 @@
                 </div>
             </div>
 </div>
-@endsection
-
-@section('script')
-    <script src="/js/cart.js" type="text/javascript"></script>
 @endsection

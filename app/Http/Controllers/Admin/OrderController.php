@@ -32,8 +32,16 @@ class OrderController extends Controller
 
         return Datatables::of($orders)
             ->addColumn('action', function ($order) {
-                $data = '<button type="button" class="btn btn-success btn-show" data-id="' . $order->id . '">' . trans('manager.layout.detail') . '</button>
-                        <button type="button" class="btn btn-danger btn-delete" data-id="' . $order->id . '">' . trans('manager.layout.delete') . '</button>';
+                if ($order->status == StatusOrder::Pending) {
+                    $data = '<button type="button" class="btn btn-success btn-show" data-id="' . $order->id . '">' . trans('manager.layout.detail') . '</button>
+                        <button type="button" class="btn btn-danger btn-delete" data-id="' . $order->id . '">' . trans('manager.order.cancel') . '</button>
+                        <button type="button" class="btn btn-primary confirm" data-id="' . $order->id . '">' . trans('manager.order.confirm') . '</button>';
+                } elseif ($order->status == StatusOrder::Confirmed) {
+                    $data = '<button type="button" class="btn btn-success btn-show" data-id="' . $order->id . '">' . trans('manager.layout.detail') . '</button>
+                        <button type="button" class="btn btn-danger btn-delete" data-id="' . $order->id . '">' . trans('manager.order.cancel') . '</button>';
+                } else {
+                    $data = '';
+                }
 
                 return $data;
             })
@@ -42,11 +50,11 @@ class OrderController extends Controller
             })
             ->editColumn('status', function($order) {
                 if ($order->status == StatusOrder::Confirmed) {
-                    return '<h3><span class="label label-success">' . trans('manager.layout.confirm') . '</span></h3>';
+                    return '<h4><span class="label label-success">' . trans('manager.layout.confirm') . '</span></h4>';
                 } elseif ($order->status == StatusOrder::Pending) {
-                    return '<button type="button" class="btn btn-warning confirm" data-id="' . $order->id . '">' . trans('manager.layout.notConfirm') . '</button>';
+                    return '<h4><span class="label label-warning">' . trans('manager.layout.pending') . '</span></h4>';
                 } else {
-                    return '<h3><span class="label label-danger">' . trans('manager.order.canceled') . '</span></h3>';
+                    return '<h4><span class="label label-danger">' . trans('manager.order.canceled') . '</span></h4>';
                 }
             })
             ->rawColumns(['total', 'action', 'status'])
@@ -125,7 +133,7 @@ class OrderController extends Controller
             Mail::to($info_delivery->user->email)->send(new SendEmailOrder($info_delivery, $orderDetails, $id));
 
             return $order;
-        } else {
+        } elseif ($order->status == StatusOrder::Confirmed) {
             $order->update([
                 'status' => StatusOrder::Canceled,
                 'reason_reject' => $request->reason_reject,
@@ -133,6 +141,14 @@ class OrderController extends Controller
             ]);
 
             $this->changQuantity($order);
+
+            return $order;
+        } else {
+            $order->update([
+                'status' => StatusOrder::Canceled,
+                'reason_reject' => $request->reason_reject,
+                'admin_id' => Auth::guard('admin')->id(),
+            ]);
 
             return $order;
         }

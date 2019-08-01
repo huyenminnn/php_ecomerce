@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\SuggestProduct;
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Category;
 use App\Enums\StatusSuggest;
 
 class SuggestProductController extends Controller
@@ -20,7 +21,9 @@ class SuggestProductController extends Controller
      */
     public function index()
     {
-        return view('manager_views.suggest');
+        $categories = Category::get();
+
+        return view('manager_views.suggest', ['categories' => $categories]);
     }
 
     public function getData()
@@ -29,9 +32,12 @@ class SuggestProductController extends Controller
 
         return Datatables::of($suggestProducts)
             ->addColumn('action', function ($suggestProduct) {
-                $data = '<button type="button" class="btn btn-success btn-show" data-id="' . $suggestProduct->id . '">' . trans('manager.layout.detail') . '</button>
-                        <button type="button" class="btn btn-warning btn-reply" data-id="' . $suggestProduct->id . '">' . trans('manager.layout.reply') . '</button>
-                        <button type="button" class="btn btn-danger btn-delete" data-id="' . $suggestProduct->id . '">' . trans('manager.layout.delete') . '</button>';
+                if (!$suggestProduct->status) {
+                    $data = '<button type="button" class="btn btn-primary btn-reply" data-id="' . $suggestProduct->id . '">' . trans('manager.suggest.add') . '</button>
+                            <button type="button" class="btn btn-danger btn-reject" data-id="' . $suggestProduct->id . '">' . trans('manager.suggest.reject') . '</button>';
+                } else {
+                    $data = '';
+                }
 
                 return $data;
             })
@@ -39,10 +45,12 @@ class SuggestProductController extends Controller
                 return User::find($suggestProduct->user_id)->name;
             })
             ->editColumn('status', function($suggestProduct) {
-                if ($suggestProduct->status) {
-                    return '<h3><span class="label label-success">' . trans('manager.layout.replied') . '</span></h3>';
+                if ($suggestProduct->status == StatusSuggest::Accept) {
+                    return '<h4><span class="label label-success">' . trans('manager.layout.replied') . '</span></h4>';
+                } elseif ($suggestProduct->status == StatusSuggest::Reject) {
+                    return '<h4><span class="label label-danger">' . trans('manager.layout.reject') . '</span></h4>';
                 } else {
-                    return '<button type="button" class="btn btn-warning reply" data-id="' . $suggestProduct->id . '">' . trans('manager.layout.notReplied') . '</button>';
+                    return '<h4><span class="label label-warning">' . trans('manager.layout.pending') . '</span></h4>';
                 }
             })
             ->editColumn('admin_id', function($suggestProduct) {
@@ -83,7 +91,9 @@ class SuggestProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $suggestProduct = SuggestProduct::find($id);
+
+        return $suggestProduct;
     }
 
     /**
@@ -109,11 +119,18 @@ class SuggestProductController extends Controller
         $suggest = SuggestProduct::find($id);
         if (!$suggest) {
             return view('layouts.error');
+        } elseif ($request->key) {
+            $suggest->update([
+                'admin_id' => Auth::guard('admin')->id(),
+                'status' => StatusSuggest::Reject,
+            ]);
+
+            return $suggest;
         } else {
             $suggest->update([
                 'reply' => $request->reply,
                 'admin_id' => Auth::guard('admin')->id(),
-                'status' => StatusSuggest::Reply,
+                'status' => StatusSuggest::Accept,
             ]);
 
             return $suggest;

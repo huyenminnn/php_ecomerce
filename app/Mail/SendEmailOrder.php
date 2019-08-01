@@ -35,11 +35,11 @@ class SendEmailOrder extends Mailable
     public function build()
     {
         return $this->subject('Order Information')
-                    ->markdown('emails.order')
-                    ->with([
-                        'info_delivery' => $this->info_delivery,
-                        'orderDetails' => $this->orderDetail,
-                        'id' => $this->id,
-                    ]);
+            ->markdown('emails.order')
+            ->with([
+                'info_delivery' => $this->info_delivery,
+                'orderDetails' => $this->orderDetail,
+                'id' => $this->id,
+            ]);
     }
 }

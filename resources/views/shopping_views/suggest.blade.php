@@ -1,13 +1,13 @@
 @extends('layouts.shopping')
 
 @section('content')
-    <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m" style="background-image: url({{ asset('bower_components/shopTemplate/shopping_assets/images/heading-pages-06.jpg') }});">
-        <h2 class="l-text2 t-center">
+    <section class="bg-title-page p-t-40 p-b-50 flex-col-c-m">
+        <h2 class="l-text2 t-center text-danger">
             {{ trans('shopping.suggest.product') }}
         </h2>
     </section>
 
-    <section class="bgwhite p-t-66 p-b-60">
+    <section class="bgwhite p-b-60">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 p-b-30">
@@ -16,18 +16,6 @@
                             {{ trans('shopping.suggest.sendMess') }}
                         </h4>
                         @csrf
-
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="name" placeholder="Full Name">
-                        </div>
-
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="phone-number" placeholder="Phone Number">
-                        </div>
-
-                        <div class="bo4 of-hidden size15 m-b-20">
-                            <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="email" placeholder="Email Address">
-                        </div>
 
                         <div class="bo4 of-hidden size15 m-b-20">
                             <input class="sizefull s-text7 p-l-22 p-r-22" type="text" name="product" placeholder="Name Product">
