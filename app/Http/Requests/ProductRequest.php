@@ -1,9 +1,6 @@
 <?php
-
 namespace App\Http\Requests;
-
 use Illuminate\Foundation\Http\FormRequest;
-
 class ProductRequest extends FormRequest
 {
     /**
@@ -15,7 +12,6 @@ class ProductRequest extends FormRequest
     {
         return true;
     }
-
     /**
      * Get the validation rules that apply to the request.
      *
@@ -25,12 +21,15 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'product_code' => 'required|unique:products, product_code, ' . $this->id,
+            'product_code' => 'required|unique:products,product_code',
             'category_id' => 'required',
-            'slug' => 'required|unique:products,slug,' . $this->id,
+            'slug' => 'required|unique:products,slug',
+            'size' => 'required',
+            'color' => 'required',
+            'quantity' => 'required',
+            'price' => 'required',
         ];
     }
-
     /**
      * Get custom messages for validator errors.
      *

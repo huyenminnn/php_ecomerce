@@ -21,11 +21,13 @@ Route::name('shop.')->group(function() {
         Route::post('/minus/{id}', 'CartController@minus')->name('minus');
         Route::post('/deleteProduct/{id}', 'CartController@deleteProduct')->name('deleteProduct');
         Route::get('/cart', 'CartController@index')->name('cart');
+        Route::get('/getCart', 'CartController@getCart');
         Route::post('/getTotal', 'CartController@getTotal')->name('getTotal');
         Route::post('/checkoutCart', 'OrderController@store')->name('checkout');
         Route::resource('suggest_products', 'SuggestProductController');
         Route::get('/history', 'OrderController@getOrder')->name('history');
         Route::get('/getDetailOrder/{id}', 'OrderController@show')->name('getDetailOrder');
+        Route::delete('/delete/{id}', 'OrderController@destroy');
     });
 });
 

@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">{{ trans('manager.layout.delete') }}</button>
+                    <button type="submit" class="btn btn-danger">{{ trans('manager.layout.cancelOrder') }}</button>
                 </div>
             </form>
         </div>
