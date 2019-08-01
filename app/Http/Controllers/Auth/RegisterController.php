@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\InfoDelivery;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -63,13 +64,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'address' => $data['address'],
             'mobile' => $data['mobile'],
         ]);
+        $id = User::where('email', $data['email'])->first()->id;
+        $info_delivery = InfoDelivery::create([
+            'user_id' => $id,
+            'username' => $data['name'],
+            'address' => $data['address'],
+            'mobile' => $data['mobile'],
+        ]);
+
+        return $user;
     }
 
     /**
@@ -81,6 +91,6 @@ class RegisterController extends Controller
      */
     protected function registered()
     {
-        return redirect()->route('home');
+        return redirect()->route('shop.index');
     }
 }

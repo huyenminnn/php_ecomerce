@@ -113,4 +113,13 @@ return [
         'address' => 'Address',
         'historyOrder' => 'History order',
     ],
+
+    'email' => [
+        'hello' => 'Hello, ',
+        'header1' => 'Thanks for your order. Your order is confirmed.',
+        'header2' => 'Below is the order information.',
+        'info' => 'Order information',
+        'treeshop' => 'Treeshop',
+        'thanks' => 'Thanks, ',
+    ],
 ];
