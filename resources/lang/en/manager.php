@@ -28,8 +28,10 @@ return [
         'confirm' => 'Confirm',
         'notConfirm' => 'Not Confirm',
         'reply' => 'Reply',
-        'replied' => 'Replied',
-        'notReplied' => 'Not Reply',
+        'replied' => 'Accepted',
+        'pending' => 'Pending',
+        'reject' => 'Reject',
+        'cancelOrder' => 'Cancel Order',
     ],
 
     'product' => [
@@ -47,6 +49,9 @@ return [
         'createAt' => 'Create At',
         'action' => 'Action',
         'searchFor' => 'Search for...',
+        'size' => 'Size',
+        'color' => 'Color',
+        'quantity' => 'Quantity',
     ],
 
     'order' => [
@@ -62,6 +67,8 @@ return [
         'action' => 'Action',
         'reason_reject' => 'Reason Reject',
         'canceled' => 'Canceled',
+        'cancel' => 'Cancel',
+        'confirm' => 'Confirm',
     ],
 
     'user' => [
@@ -85,6 +92,8 @@ return [
         'createAt' => 'Create At',
         'action' => 'Action',
         'message' => 'Message',
+        'add' => 'Add Product',
         'replyProduct' => 'Reply Suggest Product',
+        'reject' => 'Reject',
     ],
 ];

@@ -69,10 +69,26 @@
                         <input type="text" class="form-control" id="product-code-add" name="product_code">
 
                         <label for="">{{ trans('manager.product.category') }}<span class="required"> *</span></label>
-                        <input type="text" class="form-control" id="category-add" name="category">
+                        <select class="form-control" id="category-add" name="category_id">
+                            @foreach($categories as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
+                        </select>
 
                         <label for="">{{ trans('manager.product.slug') }}<span class="required"> *</span></label>
                         <input type="text" class="form-control" id="slug-add" name="slug">
+
+                        <label for="">{{ trans('manager.product.price') }}<span class="required"> *</span></label>
+                        <input type="number" class="form-control" id="price-add" name="price">
+
+                        <label for="">{{ trans('manager.product.size') }}<span class="required"> *</span></label>
+                        <input type="text" class="form-control" id="size-add" name="size">
+
+                        <label for="">{{ trans('manager.product.color') }}<span class="required"> *</span></label>
+                        <input type="text" class="form-control" id="color-add" name="color">
+
+                        <label for="">{{ trans('manager.product.quantity') }}<span class="required"> *</span></label>
+                        <input type="number" class="form-control" id="quantity-add" name="quantity">
 
                         <label for="">{{ trans('manager.product.description') }}</label>
                         <textarea type="text" class="form-control" id="description-add" name="description" rows="3"></textarea>
