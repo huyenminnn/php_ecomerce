@@ -67,7 +67,13 @@
                             </li>
 
                             <li>
-                                <a href="#">{{ trans('shopping.layout.shop') }}</a>
+                                <a href="#">{{ trans('shopping.layout.category') }}</a>
+
+                                <ul class="sub_menu">
+                                    @foreach($categories as $category)
+                                        <li><a href="{{ route('shop.category', ['slug' => $category->slug]) }}">{{ $category->name }}</a></li>
+                                    @endforeach
+                                </ul>
                             </li>
 
                             <li>
@@ -83,7 +89,7 @@
                             </li>
 
                             <li>
-                                <a href={{ route('shop.suggest_products.index') }}>{{ trans('shopping.layout.contact') }}</a>
+                                <a href={{ route('shop.suggest_products.index') }}>{{ trans('shopping.layout.suggest') }}</a>
                             </li>
                         </ul>
                     </nav>
@@ -115,19 +121,15 @@
                         @endif
                     </ul>
                     <div class="header-wrapicon2">
-                        <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown" alt="ICON">
-                        <span class="header-icons-noti">0</span>
+                        <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/icons/icon-header-02.png') }}" class="header-icon1 js-show-header-dropdown cart-icon" alt="ICON">
 
                         <!-- Header cart noti -->
                         <div class="header-cart header-dropdown">
-                            <ul class="header-cart-wrapitem">
-                                <li class="header-cart-item">
-
-                                </li>
+                            <ul class="header-cart-wrapitem view-cart">
                             </ul>
 
                             <div class="header-cart-total">
-                                {{ trans('shopping.layout.total') }}
+                                {{-- {{ trans('shopping.layout.total') }} --}}
                             </div>
 
                             <div class="header-cart-buttons">
@@ -177,7 +179,7 @@
                             </ul>
 
                             <div class="header-cart-total">
-                                {{ trans('shopping.layout.total') }}
+                                {{-- {{ trans('shopping.layout.total') }} --}}
                             </div>
 
                             <div class="header-cart-buttons">
@@ -256,7 +258,7 @@
                     </li>
 
                     <li class="item-menu-mobile">
-                        <a href={{ route('shop.suggest_products.index') }}>{{ __('shopping.layout.contact') }}</a>
+                        <a href={{ route('shop.suggest_products.index') }}>{{ __('shopping.layout.suggest') }}</a>
                     </li>
                 </ul>
             </nav>
@@ -419,6 +421,7 @@
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/shopping_assets/js/extra.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/shopping_assets/js/main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/numeral.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/home.js') }}"></script>
     @yield('script')
 </body>
 </html>

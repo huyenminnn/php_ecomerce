@@ -79,12 +79,15 @@ class CartController extends Controller
     {
         $cart = Session::get('cart');
         $product_detail = ProductDetail::find($id);
-        if (isset($cart[$id])) {
+        if (isset($cart[$id]) && $cart[$id]['quantity'] < $product_detail->quantity) {
             $cart[$id]['quantity'] ++;
             $cart[$id]['subTotal'] += $product_detail->price;
             Session::put('cart', $cart);
+            $total = $this->getTotal();
 
-            return ['subTotal' => $cart[$id]['subTotal'], 'id' => $id];
+            return ['subTotal' => $cart[$id]['subTotal'], 'id' => $id, 'totalCart' => $total];
+        } elseif ($cart[$id]['quantity'] == $product_detail->quantity) {
+            return ['numberMax' => $product_detail->quantity, 'id' => $id];
         } else {
             header('HTTP/1.1 500 Internal Server Booboo');
             die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
@@ -102,8 +105,9 @@ class CartController extends Controller
             $cart[$id]['quantity'] --;
             $cart[$id]['subTotal'] -= $product_detail->price;
             Session::put('cart', $cart);
+            $total = $this->getTotal();
 
-            return ['subTotal' => $cart[$id]['subTotal'], 'id' => $id];
+            return ['subTotal' => $cart[$id]['subTotal'], 'id' => $id, 'totalCart' => $total];
         }
     }
 
@@ -113,12 +117,13 @@ class CartController extends Controller
         if (isset(($cart[$id]))) {
             unset($cart[$id]);
             Session::put('cart', $cart);
+            $total = $this->getTotal();
 
-            return ['id' => $id];
+            return ['id' => $id, 'totalCart' => $total];
         }
     }
 
-    public function getTotal(Request $req){
+    public function getTotal(){
         $cart = Session::get('cart');
         $total = 0;
         foreach ($cart as $product) {
@@ -126,5 +131,13 @@ class CartController extends Controller
         }
 
         return ['total' => $total];
+    }
+
+    public function getCart(){
+        $cart = Session::get('cart');
+        if (!$cart) {
+            return ['flag' => trans('shopping.layout.nothing')];
+        }
+        return ['cart' => Session::get('cart'), 'url' => config('app.url')];
     }
 }

@@ -1,8 +1,8 @@
 @extends('layouts.shopping')
 
 @section('content')
-<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m bg-cart">
-    <h2 class="l-text2 t-center">
+<section class="bg-title-page p-t-40 p-b-50 flex-col-c-m">
+    <h2 class="l-text2 t-center text-danger">
         {{ trans('shopping.cart.cart') }}
     </h2>
 </section>
@@ -38,7 +38,7 @@
                                     <i class="fs-12 fa fa-minus" aria-hidden="true"></i>
                                 </button>
 
-                                <input class="size8 m-text18 t-center num-product" type="number" name="num-product1" value="{{ $product['quantity'] }}">
+                                <input class="size8 m-text18 t-center number-product" type="number" name="" value="{{ $product['quantity'] }}" data-id="{{ $key }}">
 
                                 <button class="btn-num-product-up color1 flex-c-m size7 bg8 eff2 btn-plus" data-id="{{ $key }}">
                                     <i class="fs-12 fa fa-plus" aria-hidden="true"></i>
@@ -56,6 +56,14 @@
         <div class="flex-w flex-sb-m p-t-25 p-b-25 bo8 p-l-35 p-r-60 p-lr-15-sm">
             <div class="flex-w flex-m w-full-sm">
 
+            </div>
+            <div class="m-b-10">
+                <span class="m-text22 w-size19 w-full-sm">
+                {{ trans('shopping.cart.totalCart') }}
+            </span>
+
+            <span class="m-text24 w-size20 w-full-sm total-cart text-danger"> {{ number_format($total) }}</span>
+            <span class="m-text24 w-size20 w-full-sm text-danger">{{ trans('shopping.cart.vnd') }}</span>
             </div>
 
             <div class="size10 trans-0-4 m-t-10 m-b-10">
@@ -121,7 +129,6 @@
     </div>
 </section>
 @endsection
-
 @section('script')
-    <script src="/js/cart.js" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('js/cart.js') }}"></script>
 @endsection
