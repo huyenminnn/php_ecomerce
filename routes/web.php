@@ -15,6 +15,7 @@ Auth::routes();
 Route::name('shop.')->group(function() {
     Route::get('/', 'ShopController@index')->name('index');
     Route::get('/product/{slug}', 'ShopController@show')->name('product');
+
     Route::middleware('auth')->group(function() {
         Route::post('/addToCart/{id}', 'CartController@addToCart')->name('addToCart');
         Route::post('/plus/{id}', 'CartController@plus')->name('plus');
@@ -28,6 +29,7 @@ Route::name('shop.')->group(function() {
         Route::get('/history', 'OrderController@getOrder')->name('history');
         Route::get('/getDetailOrder/{id}', 'OrderController@show')->name('getDetailOrder');
         Route::delete('/delete/{id}', 'OrderController@destroy');
+        Route::get('/{slug}', 'ShopController@showProductWithCategory')->name('category');
     });
 });
 

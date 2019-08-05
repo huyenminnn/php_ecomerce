@@ -4,7 +4,7 @@
     <section class="slide1">
         <div class="wrap-slick1">
             <div class="slick1">
-                <div class="item-slick1 item1-slick1" style="background-image: url('https://bizweb.dktcdn.net/100/290/228/themes/630285/assets/slider_1_image.png?1555494661059'); background-size: ;">
+                <div class="item-slick1 item1-slick1" style="background-image: url('https://bizweb.dktcdn.net/100/290/228/themes/630285/assets/slider_1_image.png?1555494661059');">
                     <div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
                         <h2 class="caption2-slide1 xl-text1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
                             {{ trans('shopping.home.newArr') }}
@@ -64,7 +64,7 @@
                         <div class="item-slick2 p-l-15 p-r-15">
                             <div class="block2">
                                 <div class="block2-img wrap-pic-w of-hidden pos-relative block2-labelnew">
-                                    <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/item-02.jpg') }}" alt="IMG-PRODUCT">
+                                    <img src="{{ asset('bower_components/shopTemplate/shopping_assets/images/image.jpg') }}" alt="IMG-PRODUCT">
 
                                     <div class="block2-overlay trans-0-4">
                                         <a href="#" class="block2-btn-addwishlist hov-pointer trans-0-4">

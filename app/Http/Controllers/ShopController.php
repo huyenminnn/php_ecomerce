@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
 
 class ShopController extends Controller
 {
@@ -35,5 +36,12 @@ class ShopController extends Controller
             }
             return view('shopping_views.product_detail', ['product' => $product, 'sizes' => $sizes, 'colors' => $colors]);
         }
+    }
+
+    public function showProductWithCategory($slug){
+        $category = Category::where('slug', $slug)->first();
+        $pro = $category->products;
+
+        return view('shopping_views.products', ['productsWithCategory' => $pro, 'category' => $category]);
     }
 }

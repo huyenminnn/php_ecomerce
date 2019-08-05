@@ -28,6 +28,7 @@ return [
         'trackOrder' => 'Track Order',
         'delete' => 'Delete',
         'nothing' => 'Nothing!',
+        'category' => 'Categories',
     ],
 
     'home' => [
