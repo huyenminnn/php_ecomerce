@@ -9,9 +9,21 @@ use App\Models\Category;
 use App\Models\ProductDetail;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\Product\ProductRepository;
+use App\Repositories\Category\CategoryRepository;
 
 class ProductController extends Controller
 {
+    //repository
+    protected $productRepo;
+    protected $categoryRepo;
+
+    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo)
+    {
+        $this->productRepo = $productRepo;
+        $this->categoryRepo = $categoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,13 +31,13 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = $this->categoryRepo->getAll();
 
         return view('manager_views.product', ['categories' => $categories]);
     }
 
     public function getData(){
-        $products = Product::get();
+        $products = $this->productRepo->getAll();
 
         return Datatables::of($products)
             ->addColumn('action', function ($product) {
@@ -121,7 +133,7 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, $id)
     {
         //
     }
@@ -134,6 +146,6 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->productRepo->destroy($id);
     }
 }
