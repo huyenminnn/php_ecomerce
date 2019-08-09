@@ -11,9 +11,20 @@ use App\Models\User;
 use App\Models\Admin;
 use App\Models\Category;
 use App\Enums\StatusSuggest;
+use App\Repositories\Category\CategoryRepository;
+use App\Repositories\SuggestProduct\SuggestProductRepository;
 
 class SuggestProductController extends Controller
 {
+    protected $suggestRepo;
+    protected $categoryRepo;
+
+    public function __construct(SuggestProductRepository $suggestRepo, CategoryRepository $categoryRepo)
+    {
+        $this->suggestRepo = $suggestRepo;
+        $this->categoryRepo = $categoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,14 +32,14 @@ class SuggestProductController extends Controller
      */
     public function index()
     {
-        $categories = Category::get();
+        $categories = $this->categoryRepo->getAll();
 
         return view('manager_views.suggest', ['categories' => $categories]);
     }
 
     public function getData()
     {
-        $suggestProducts = SuggestProduct::get();
+        $suggestProducts = $this->suggestRepo->getAll();
 
         return Datatables::of($suggestProducts)
             ->addColumn('action', function ($suggestProduct) {
@@ -91,7 +102,7 @@ class SuggestProductController extends Controller
      */
     public function show($id)
     {
-        $suggestProduct = SuggestProduct::find($id);
+        $suggestProduct = $this->suggestRepo->findById($id);
 
         return $suggestProduct;
     }
@@ -120,18 +131,20 @@ class SuggestProductController extends Controller
         if (!$suggest) {
             return view('layouts.error');
         } elseif ($request->key) {
-            $suggest->update([
+            $dataUpdate = [
                 'admin_id' => Auth::guard('admin')->id(),
                 'status' => StatusSuggest::Reject,
-            ]);
+            ];
+            $this->suggestRepo->update($suggest, $dataUpdate);
 
             return $suggest;
         } else {
-            $suggest->update([
+            $dataUpdate = [
                 'reply' => $request->reply,
                 'admin_id' => Auth::guard('admin')->id(),
                 'status' => StatusSuggest::Accept,
-            ]);
+            ];
+            $this->suggestRepo->update($suggest, $dataUpdate);
 
             return $suggest;
         }
