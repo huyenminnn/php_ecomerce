@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Category\CategoryRepository;
-use App\Models\Product;
-use App\Models\Category;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class ShopController extends Controller
 {
@@ -14,7 +12,7 @@ class ShopController extends Controller
     protected $productRepo;
     protected $categoryRepo;
 
-    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo)
+    public function __construct(ProductRepositoryInterface $productRepo, CategoryRepositoryInterface $categoryRepo)
     {
         $this->productRepo = $productRepo;
         $this->categoryRepo = $categoryRepo;

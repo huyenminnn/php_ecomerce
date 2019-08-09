@@ -6,23 +6,30 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
-use App\Models\SuggestProduct;
-use App\Models\User;
-use App\Models\Admin;
-use App\Models\Category;
 use App\Enums\StatusSuggest;
-use App\Repositories\Category\CategoryRepository;
-use App\Repositories\SuggestProduct\SuggestProductRepository;
+use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\SuggestProduct\SuggestRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Admin\AdminRepositoryInterface;
 
 class SuggestProductController extends Controller
 {
     protected $suggestRepo;
     protected $categoryRepo;
+    protected $userRepo;
+    protected $adminRepo;
 
-    public function __construct(SuggestProductRepository $suggestRepo, CategoryRepository $categoryRepo)
+    public function __construct(
+        SuggestRepositoryInterface $suggestRepo,
+        CategoryRepositoryInterface $categoryRepo,
+        UserRepositoryInterface $userRepo,
+        AdminRepositoryInterface $adminRepo
+    )
     {
         $this->suggestRepo = $suggestRepo;
         $this->categoryRepo = $categoryRepo;
+        $this->userRepo = $userRepo;
+        $this->adminRepo = $adminRepo;
     }
 
     /**
@@ -53,7 +60,7 @@ class SuggestProductController extends Controller
                 return $data;
             })
             ->editColumn('user_id', function($suggestProduct) {
-                return User::find($suggestProduct->user_id)->name;
+                return $this->userRepo->findById($suggestProduct->user_id)->name;
             })
             ->editColumn('status', function($suggestProduct) {
                 if ($suggestProduct->status == StatusSuggest::Accept) {
@@ -66,7 +73,7 @@ class SuggestProductController extends Controller
             })
             ->editColumn('admin_id', function($suggestProduct) {
                 if ($suggestProduct->admin_id) {
-                    return Admin::find($suggestProduct->admin_id)->name;
+                    return $this->adminRepo->findById($suggestProduct->admin_id)->name;
                 }
             })
             ->rawColumns(['user_id', 'action', 'status', 'admin_id'])
@@ -127,7 +134,7 @@ class SuggestProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $suggest = SuggestProduct::find($id);
+        $suggest = $this->suggestRepo->findById($id);
         if (!$suggest) {
             return view('layouts.error');
         } elseif ($request->key) {

@@ -4,13 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Models\Product;
-use App\Models\Category;
 use App\Models\ProductDetail;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Auth;
-use App\Repositories\Product\ProductRepository;
-use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class ProductController extends Controller
 {
@@ -18,7 +16,7 @@ class ProductController extends Controller
     protected $productRepo;
     protected $categoryRepo;
 
-    public function __construct(ProductRepository $productRepo, CategoryRepository $categoryRepo)
+    public function __construct(ProductRepositoryInterface $productRepo, CategoryRepositoryInterface $categoryRepo)
     {
         $this->productRepo = $productRepo;
         $this->categoryRepo = $categoryRepo;
