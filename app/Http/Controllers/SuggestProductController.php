@@ -5,13 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
-use App\Models\SuggestProduct;
-use App\Models\User;
-use App\Models\Admin;
 use App\Enums\StatusSuggest;
+use App\Repositories\SuggestProduct\SuggestRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Admin\AdminRepositoryInterface;
 
 class SuggestProductController extends Controller
 {
+    protected $suggestRepo;
+    protected $userRepo;
+    protected $adminRepo;
+
+    public function __construct(
+        SuggestRepositoryInterface $suggestRepo,
+        UserRepositoryInterface $userRepo,
+        AdminRepositoryInterface $adminRepo
+    )
+    {
+        $this->suggestRepo = $suggestRepo;
+        $this->userRepo = $userRepo;
+        $this->adminRepo = $adminRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +54,13 @@ class SuggestProductController extends Controller
      */
     public function store(Request $request)
     {
-        $suggest = new SuggestProduct();
-        $suggest->user_id = Auth::user()->id;
-        $suggest->name = $request->product;
-        $suggest->description = $request->message;
-        $suggest->status = StatusSuggest::Pending;
-        $suggest->save();
+        $data = [
+            'user_id' => Auth::user()->id,
+            'name' => $request->product,
+            'description' => $request->message,
+            'status' => StatusSuggest::Pending,
+        ];
+        $this->suggestRepo->create($data);
 
         return view('shopping_views.suggest');
     }

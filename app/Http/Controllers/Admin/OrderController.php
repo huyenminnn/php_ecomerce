@@ -8,15 +8,32 @@ use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SendEmailOrder;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\ProductDetail;
-use App\Models\User;
-use App\Models\InfoDelivery;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderDetail\OrderDetailRepositoryInterface;
+use App\Repositories\ProductDetail\ProductDetailRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\InfoDelivery\InfoDeliveryRepositoryInterface;
 use App\Enums\StatusOrder;
 
 class OrderController extends Controller
 {
+    protected $orderRepo;
+    protected $productDetailRepo;
+    protected $infoDeliveryRepo;
+    protected $userRepo;
+
+    public function __construct(
+        OrderRepositoryInterface $orderRepo,
+        ProductDetailRepositoryInterface $productDetailRepo,
+        InfoDeliveryRepositoryInterface $infoDeliveryRepo,
+        UserRepositoryInterface $userRepo
+    )
+    {
+        $this->orderRepo = $orderRepo;
+        $this->productDetailRepo = $productDetailRepo;
+        $this->infoDeliveryRepo = $infoDeliveryRepo;
+        $this->userRepo = $userRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +45,7 @@ class OrderController extends Controller
     }
 
     public function getData(){
-        $orders = Order::get();
+        $orders = $this->orderRepo->getAll();
 
         return Datatables::of($orders)
             ->addColumn('action', function ($order) {
@@ -113,19 +130,20 @@ class OrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $order = Order::find($id);
+        $order = $this->orderRepo->findById($id);
         if (!$order) {
             return view('layouts.error');
         } elseif ($request->data == 'confirm') {
-            $order->update([
+            $dataUpdate = [
                 'status' => StatusOrder::Confirmed,
                 'admin_id' => Auth::guard('admin')->id(),
-            ]);
+            ];
+            $this->orderRepo->update($order, $dataUpdate);
 
             $orderDetails = $order->orderDetails;
-            $info_delivery = InfoDelivery::find($order->info_delivery);
+            $info_delivery = $this->infoDeliveryRepo->findById($order->info_delivery);
             foreach ($orderDetails as $orderDetail) {
-                $product_detail = ProductDetail::find($orderDetail->product_detail_id);
+                $product_detail = $this->productDetailRepo->findById($orderDetail->product_detail_id);
                 $orderDetail->name = $product_detail->product->name;
                 $orderDetail->size = $product_detail->size;
                 $orderDetail->color = $product_detail->color;
@@ -134,21 +152,23 @@ class OrderController extends Controller
 
             return $order;
         } elseif ($order->status == StatusOrder::Confirmed) {
-            $order->update([
+            $dataUpdate = [
                 'status' => StatusOrder::Canceled,
                 'reason_reject' => $request->reason_reject,
                 'admin_id' => Auth::guard('admin')->id(),
-            ]);
+            ];
+            $this->orderRepo->update($order, $dataUpdate);
 
             $this->changQuantity($order);
 
             return $order;
         } else {
-            $order->update([
+            $dataUpdate = [
                 'status' => StatusOrder::Canceled,
                 'reason_reject' => $request->reason_reject,
                 'admin_id' => Auth::guard('admin')->id(),
-            ]);
+            ];
+            $this->orderRepo->update($order, $dataUpdate);
 
             return $order;
         }
@@ -170,9 +190,10 @@ class OrderController extends Controller
     {
         $orderDetails = $order->orderDetails;
         foreach ($orderDetails as $key => $orderDetail) {
-            $productDetail = ProductDetail::find($orderDetail->product_detail_id);
+            $productDetail = $this->productDetailRepo->findById($orderDetail->product_detail_id);
             $quantity = $productDetail->quantity;
-            $productDetail->update(['quantity' => $quantity + $orderDetail->quantity]);
+            $dataUpdate = ['quantity' => $quantity + $orderDetail->quantity];
+            $this->productDetailRepo->update($productDetail, $dataUpdate);
         }
     }
 }

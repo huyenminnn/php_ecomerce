@@ -4,22 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
-use App\Models\ProductDetail;
 use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\ProductDetail\ProductDetailRepositoryInterface;
 
 class ProductController extends Controller
 {
     //repository
     protected $productRepo;
     protected $categoryRepo;
+    protected $productDetailRepo;
 
-    public function __construct(ProductRepositoryInterface $productRepo, CategoryRepositoryInterface $categoryRepo)
+    public function __construct(
+        ProductRepositoryInterface $productRepo,
+        CategoryRepositoryInterface $categoryRepo,
+        ProductDetailRepositoryInterface $productDetailRepo
+    )
     {
         $this->productRepo = $productRepo;
         $this->categoryRepo = $categoryRepo;
+        $this->productDetailRepo = $productDetailRepo;
     }
 
     /**
@@ -76,24 +82,26 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
-        $product = new Product();
-        $product->name = $request->name;
-        $product->category_id = $request->category_id;
-        $product->product_code = $request->product_code;
-        $product->slug = $request->slug;
-        $product->price = $request->price;
-        $product->description = $request->description;
-        $product->admin_id = Auth::guard('admin')->id();
-        $product->save();
+        $product = [
+            'name' => $request->name,
+            'category_id' => $request->category_id,
+            'product_code' => $request->product_code,
+            'slug' => $request->slug,
+            'price' => $request->price,
+            'description' => $request->description,
+            'admin_id' => Auth::guard('admin')->id(),
+        ];
+        $this->productRepo->create($product);
 
-        $newProduct = Product::where('product_code', $request->product_code)->first()->id;
-        $productDetail = new ProductDetail();
-        $productDetail->product_id = $newProduct;
-        $productDetail->price = $request->price;
-        $productDetail->size = $request->size;
-        $productDetail->color = $request->color;
-        $productDetail->quantity = $request->quantity;
-        $productDetail->save();
+        $newProduct = $this->productRepo->findFirst('product_code' => $request->product_code)->id;
+        $productDetail = [
+            'product_id' => $newProduct,
+            'price' => $request->price,
+            'size' => $request->size,
+            'color' => $request->color,
+            'quantity' => $request->quantity,
+        ];
+        $this->productDetailRepo->create($product);
 
         if ($request->suggest_id) {
             return ['id' => $request->suggest_id];

@@ -5,16 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Product;
-use App\Models\User;
-use App\Models\ProductDetail;
+use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\ProductDetail\ProductDetailRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
 use Session;
 
 class CartController extends Controller
 {
+    protected $productRepo;
+    protected $productDetailRepo;
+    protected $userRepo;
+
+    public function __construct(
+        ProductRepositoryInterface $productRepo,
+        ProductDetailRepositoryInterface $productDetailRepo,
+        UserRepositoryInterface $userRepo
+    )
+    {
+        $this->userRepo = $userRepo;
+        $this->productRepo = $productRepo;
+        $this->productDetailRepo = $productDetailRepo;
+    }
+
     public function index()
     {
-        $user = User::find(Auth::user()->id);
+        $user = $this->userRepo->findById(Auth::user()->id);
         $info = $user->infoDeliveries;
         $cart = Session::get('cart');
         $total = 0;
@@ -32,12 +47,13 @@ class CartController extends Controller
     public function addToCart(Request $req, $id)
     {
         try {
-            $product = Product::findOrFail($id);
-            $product_detail = ProductDetail::where([
+            $product = $this->product->findOrFail($id);
+            $data = [
                 'product_id' => $id,
                 'color' => $req->color,
                 'size' => $req->size,
-            ])->first();
+            ];
+            $product_detail = $this->productDetailRepo->findFirst($data);
 
             $addProduct = [
                 "id" => $id,
@@ -78,7 +94,7 @@ class CartController extends Controller
     public function plus(Request $req, $id)
     {
         $cart = Session::get('cart');
-        $product_detail = ProductDetail::find($id);
+        $product_detail = $this->productDetailRepo->findById($id);
         if (isset($cart[$id]) && $cart[$id]['quantity'] < $product_detail->quantity) {
             $cart[$id]['quantity'] ++;
             $cart[$id]['subTotal'] += $product_detail->price;
@@ -101,7 +117,7 @@ class CartController extends Controller
             if ($cart[$id]['quantity'] == 1) {
                 $this->deleteProduct($req, $id);
             }
-            $product_detail = ProductDetail::find($id);
+            $product_detail = $this->productDetailRepo->findById($id);
             $cart[$id]['quantity'] --;
             $cart[$id]['subTotal'] -= $product_detail->price;
             Session::put('cart', $cart);

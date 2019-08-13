@@ -3,10 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Repositories\User\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+    protected $userRepo;
+
+    public function __construct(UserRepositoryInterface $userRepo)
+    {
+        $this->uesrRepo = $userRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -46,7 +52,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = $this->userRepo->findById($id);
         return $user;
     }
 

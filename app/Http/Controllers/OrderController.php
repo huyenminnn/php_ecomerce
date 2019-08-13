@@ -5,16 +5,37 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Datatables;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Order;
-use App\Models\OrderDetail;
-use App\Models\ProductDetail;
-use App\Models\User;
-use App\Models\InfoDelivery;
+use App\Repositories\ProductDetail\ProductDetailRepositoryInterface;
+use App\Repositories\Order\OrderRepositoryInterface;
+use App\Repositories\OrderDetail\OrderDetailRepositoryInterface;
+use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\InfoDelivery\InfoDeliveryRepositoryInterface;
 use App\Enums\StatusOrder;
 use Session;
 
 class OrderController extends Controller
 {
+    protected $orderRepo;
+    protected $orderDetailRepo;
+    protected $productDetailRepo;
+    protected $userRepo;
+    protected $infoDeliveryRepo;
+
+    public function __construct(
+        ProductDetailRepositoryInterface $productDetailRepo,
+        OrderRepositoryInterface $orderRepo,
+        OrderDetailRepositoryInterface $orderDetailRepo,
+        UserRepositoryInterface $userRepo,
+        InfoDeliveryRepositoryInterface $infoDeliveryRepo
+    )
+    {
+        $this->orderRepo = $orderRepo;
+        $this->orderDetailRepo = $orderDetailRepo;
+        $this->productDetailRepo = $productDetailRepo;
+        $this->userRepo = $userRepo;
+        $this->infoDeliveryRepo = $infoDeliveryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,13 +64,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        $order = new Order();
-        $order->order_code = $request->info_delivery . time();
+        $order_code = $request->info_delivery . time();
 
         $cart = Session::get('cart');
         $total = 0;
         foreach ($cart as $key => $product) {
-            $productDetail = ProductDetail::find($key);
+            $productDetail = $this->productDetailRepo->findById($key);
             if (!$productDetail) {
                 unset($cart[$key]);
                 Session::put('cart', $cart);
@@ -57,16 +77,19 @@ class OrderController extends Controller
                 return redirect()->route('shop.cart');
             } else {
                 $quantity = $productDetail->quantity;
-                $productDetail->update(['quantity' => $quantity - $product['quantity']]);
+                $this->productDetailRepo->update($productDetail, ['quantity' => $quantity - $product['quantity']]);
                 $total += $product['subTotal'];
-                $this->orderDetail($order->order_code, $key, $product);
+                $this->orderDetail($order_code, $key, $product);
             }
         }
 
-        $order->total = $total;
-        $order->status = StatusOrder::Pending;
-        $order->info_delivery = $request->info_delivery;
-        $order->save();
+        $data = [
+            'order_code' => $order_code,
+            'total' => $total,
+            'status' => StatusOrder::Pending,
+            'info_delivery' => $request->info_delivery,
+        ];
+        $this->orderRepo->create($data);
         Session::forget('cart');
 
         return redirect()->route('shop.index');
@@ -80,14 +103,14 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = $this->orderRepo->findById($id);
         if (!$order) {
             return view('layouts.error');
         } else {
             $orderDetails = $order->orderDetails;
-            $info_delivery = InfoDelivery::find($order->info_delivery);
+            $info_delivery = $this->infoDeliveryRepo->findById($order->info_delivery);
             foreach ($orderDetails as $orderDetail) {
-                $product_detail = ProductDetail::find($orderDetail->product_detail_id);
+                $product_detail = $this->productDetailRepo->findById($orderDetail->product_detail_id);
                 $orderDetail->name = $product_detail->product->name;
                 $orderDetail->size = $product_detail->size;
                 $orderDetail->color = $product_detail->color;
@@ -133,12 +156,13 @@ class OrderController extends Controller
 
     // add order details
     public function orderDetail($code, $key, array $product){
-        $orderDetail = new OrderDetail();
-        $orderDetail->order_code = $code;
-        $orderDetail->product_detail_id = $key;
-        $orderDetail->quantity = $product['quantity'];
-        $orderDetail->total = $product['quantity'] * $product['price'];
-        $orderDetail->save();
+        $data = [
+            'order_code' => $code,
+            'product_detail_id' => $key,
+            'quantity' => $product['quantity'],
+            'total' => $product['quantity'] * $product['price'],
+        ];
+        $this->orderDetailRepo->create($data);
     }
 
     // update quantity product when order is canceled
@@ -146,16 +170,17 @@ class OrderController extends Controller
     {
         $orderDetails = $order->orderDetails;
         foreach ($orderDetails as $key => $orderDetail) {
-            $productDetail = ProductDetail::find($orderDetail->product_detail_id);
+            $productDetail = $this->productDetailRepo->findById($orderDetail->product_detail_id);
             $quantity = $productDetail->quantity;
-            $productDetail->update(['quantity' => $quantity + $orderDetail->quantity]);
+
+            $this->productDetailRepo->update($productDetail, ['quantity' => $quantity + $orderDetail->quantity]);
         }
     }
 
     public function getOrder()
     {
         $orders = collect();
-        $user = User::find(Auth::user()->id);
+        $user = $this->userRepo->findById(Auth::user()->id);
         $info_deliveries = $user->infoDeliveries;
         foreach ($info_deliveries as $key => $info) {
             $order = $info->orders;
