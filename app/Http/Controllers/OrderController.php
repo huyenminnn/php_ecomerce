@@ -12,6 +12,7 @@ use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\InfoDelivery\InfoDeliveryRepositoryInterface;
 use App\Enums\StatusOrder;
 use Session;
+use Pusher\Pusher;
 
 class OrderController extends Controller
 {
@@ -26,7 +27,7 @@ class OrderController extends Controller
         OrderRepositoryInterface $orderRepo,
         OrderDetailRepositoryInterface $orderDetailRepo,
         UserRepositoryInterface $userRepo,
-        InfoDeliveryRepositoryInterface $infoDeliveryRepo,
+        InfoDeliveryRepositoryInterface $infoDeliveryRepo
     )
     {
         $this->orderRepo = $orderRepo;
@@ -91,6 +92,24 @@ class OrderController extends Controller
         ];
         $this->orderRepo->create($data);
         Session::forget('cart');
+
+        $dataNotify = [
+            'title' => 'New order!',
+            'content' => 'Order code: ' . $data['order_code'],
+        ];
+        $options = array(
+            'cluster' => 'ap1',
+            'encrypted' => true
+        );
+
+        $pusher = new Pusher(
+            env('PUSHER_APP_KEY'),
+            env('PUSHER_APP_SECRET'),
+            env('PUSHER_APP_ID'),
+            $options
+        );
+        $pusher->trigger('Notify', 'php_ecomerce', $dataNotify);
+        $user->notify(new UserFollowed($follower));
 
         return redirect()->route('shop.index');
     }

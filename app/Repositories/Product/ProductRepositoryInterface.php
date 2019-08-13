@@ -9,4 +9,6 @@ interface ProductRepositoryInterface
     public function getHotProduct($number);
 
     public function getBestSellerProduct($number);
+
+    public function countWithTime($data = [], $dataSelect = ['*'], $startTime, $endTime);
 }

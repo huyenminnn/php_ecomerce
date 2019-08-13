@@ -93,7 +93,7 @@ class ProductController extends Controller
         ];
         $this->productRepo->create($product);
 
-        $newProduct = $this->productRepo->findFirst('product_code' => $request->product_code)->id;
+        $newProduct = $this->productRepo->findFirst(['product_code' => $request->product_code])->id;
         $productDetail = [
             'product_id' => $newProduct,
             'price' => $request->price,

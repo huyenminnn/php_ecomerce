@@ -11,4 +11,9 @@ class OrderDetailRepository extends BaseRepository implements OrderDetailReposit
     {
         return OrderDetail::class;
     }
+
+    public function sum($data = [])
+    {
+        return $this->model->where($data)->sum();
+    }
 }

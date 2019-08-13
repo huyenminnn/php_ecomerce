@@ -3,5 +3,5 @@ namespace App\Repositories\User;
 
 interface UserRepositoryInterface
 {
-
+    public function countWithTime($data = [], $dataSelect = ['*'], $startTime, $endTime);
 }

@@ -15,6 +15,7 @@ Auth::routes();
 Route::name('shop.')->group(function() {
     Route::get('/', 'ShopController@index')->name('index');
     Route::get('/product/{slug}', 'ShopController@show')->name('product');
+    Route::get('/category/{slug}', 'ShopController@showProductWithCategory')->name('category');
 
     Route::middleware('auth')->group(function() {
         Route::post('/addToCart/{id}', 'CartController@addToCart')->name('addToCart');
@@ -29,7 +30,13 @@ Route::name('shop.')->group(function() {
         Route::get('/history', 'OrderController@getOrder')->name('history');
         Route::get('/getDetailOrder/{id}', 'OrderController@show')->name('getDetailOrder');
         Route::delete('/delete/{id}', 'OrderController@destroy');
-        Route::get('/{slug}', 'ShopController@showProductWithCategory')->name('category');
+        Route::get('/edit-profile', 'UserController@edit')->name('profile');
+        Route::get('/profile', 'UserController@show')->name('showProfile');
+        Route::post('/profile', 'UserController@update')->name('editProfile');
+        Route::get('/changePassword', 'UserController@showChangePass')->name('showChangePassword');
+        Route::post('/changePassword', 'UserController@changePass')->name('changePassword');
+
+
     });
 });
 
@@ -46,5 +53,8 @@ Route::prefix('admin')->group(function() {
         Route::resource('orders', 'Admin\OrderController');
         Route::get('/getSuggestProduct', 'Admin\SuggestProductController@getData')->name('suggest.getData');
         Route::resource('suggest_products', 'Admin\SuggestProductController');
+        Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard.index');
+        Route::get('/statistic', 'Admin\DashboardController@statistic')->name('dashboard.statistic');
+        Route::post('/info-statistic', 'Admin\DashboardController@infoStatistic')->name('dashboard.infoStatistic');
     });
 });

@@ -27,4 +27,16 @@ class ProductRepository extends BaseRepository implements ProductRepositoryInter
 
         return $result;
     }
+
+    public function countWithTime($data = [], $dataSelect = ['*'], $startTime, $endTime)
+    {
+        $result = $this->model
+            ->select($dataSelect)
+            ->where($data)
+            ->where('created_at', '>', $startTime)
+            ->where('created_at', '<', $endTime)
+            ->count();
+
+        return $result;
+    }
 }

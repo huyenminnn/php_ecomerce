@@ -19,7 +19,7 @@ class CartController extends Controller
     public function __construct(
         ProductRepositoryInterface $productRepo,
         ProductDetailRepositoryInterface $productDetailRepo,
-        UserRepositoryInterface $userRepo,
+        UserRepositoryInterface $userRepo
     )
     {
         $this->userRepo = $userRepo;
@@ -47,7 +47,7 @@ class CartController extends Controller
     public function addToCart(Request $req, $id)
     {
         try {
-            $product = $this->product->findOrFail($id);
+            $product = $this->productRepo->findOrFail($id);
             $data = [
                 'product_id' => $id,
                 'color' => $req->color,
@@ -66,7 +66,7 @@ class CartController extends Controller
             ];
 
             $key = $product_detail->id;
-            $this->store($key, $addProduct);
+            return $this->store($key, $addProduct);
         } catch (ModelNotFoundException $e) {
             header('HTTP/1.1 500 Internal Server Booboo');
             die(json_encode(array('message' => 'ERROR', 'code' => 1337)));
@@ -75,20 +75,24 @@ class CartController extends Controller
 
     public function store($key, $product){
         $cart = Session::get('cart');
-
         if (!$cart) {
             $cart = [
                 $key => $product,
             ];
+            $flag = 1;
         } elseif (isset($cart[$key])) {
             $cart[$key]['quantity'] += $product['quantity'];
             $cart[$key]['subTotal'] += $product['quantity'] * $product['price'];
+            $flag = 0;
         } else {
             $cart[$key] = $product;
+            $flag = 1;
         }
         Session::put('cart', $cart);
 
-        return Session::get('cart');
+        Session::get('cart');
+
+        return $flag;
     }
 
     public function plus(Request $req, $id)

@@ -26,6 +26,7 @@
     <link href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset('bower_components/shopTemplate/manager_assets/vendors/toastr/toastr.min.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.css" rel="stylesheet">
 </head>
 
 <body class="nav-md">
@@ -55,26 +56,32 @@
                         <div class="menu_section">
                             <h3>{{ trans('manager.layout.manager') }}</h3>
                             <ul class="nav side-menu">
-                              <li>
-                                <a href="{{ route('products.index') }}">
-                                    <i class="fa fa-home"></i> {{ trans('manager.layout.product') }} <span class="fa fa-chevron-down"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('users.index') }}">
-                                    <i class="fa fa-edit"></i> {{ trans('manager.layout.user') }} <span class="fa fa-chevron-down"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('orders.index') }}">
-                                    <i class="fa fa-edit"></i> {{ trans('manager.layout.order') }} <span class="fa fa-chevron-down"></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ route('suggest_products.index') }}">
-                                    <i class="fa fa-edit"></i> {{ trans('manager.layout.suggestProduct') }} <span class="fa fa-chevron-down"></span>
-                                </a>
-                            </li>
+                                <li>
+                                    <a href="{{ route('dashboard.index') }}">
+                                        <i class="fa fa-home"></i> {{ trans('manager.layout.dashboard') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('products.index') }}">
+                                        <i class="fa fa-home"></i> {{ trans('manager.layout.product') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('users.index') }}">
+                                        <i class="fa fa-edit"></i> {{ trans('manager.layout.user') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('orders.index') }}">
+                                        <i class="fa fa-edit"></i> {{ trans('manager.layout.order') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('suggest_products.index') }}">
+                                        <i class="fa fa-edit"></i> {{ trans('manager.layout.suggestProduct') }}
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                     <div class="sidebar-footer hidden-small">
@@ -127,7 +134,7 @@
                             <li role="presentation" class="dropdown">
                                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-envelope-o"></i>
-                                    <span class="badge bg-green">0</span>
+                                    <span class="badge bg-green" id="number-noti">0</span>
                                 </a>
                                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                                     <li>
@@ -194,11 +201,14 @@
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.js"></script>
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/build/js/custom.min.js') }}"></script>
     <script src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/sweetalert.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/toastr/toastr.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bower_components/shopTemplate/manager_assets/vendors/numeral.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/notification.js') }}"></script>
     @yield('script')
 </body>
 </html>

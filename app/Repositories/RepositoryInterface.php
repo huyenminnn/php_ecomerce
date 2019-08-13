@@ -24,4 +24,8 @@ interface RepositoryInterface
     public function update($id, $data);
 
     public function destroy($id);
+
+    public function countAll();
+
+    public function count($data = []);
 }

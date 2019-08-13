@@ -84,4 +84,16 @@ abstract class BaseRepository implements RepositoryInterface
 
         return false;
     }
+
+    public function countAll()
+    {
+        return $this->model->count();
+    }
+
+    public function count($data = [])
+    {
+        $result = $this->model->where($data)->count();
+
+        return $result;
+    }
 }

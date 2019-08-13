@@ -32,6 +32,7 @@ return [
         'pending' => 'Pending',
         'reject' => 'Reject',
         'cancelOrder' => 'Cancel Order',
+        'dashboard' => 'Dashboard',
     ],
 
     'product' => [
@@ -95,5 +96,22 @@ return [
         'add' => 'Add Product',
         'replyProduct' => 'Reply Suggest Product',
         'reject' => 'Reject',
+    ],
+
+    'dashboard' => [
+        'totalUser' => 'Total Users',
+        'totalProduct' => 'Total Products',
+        'totalOrder' => 'Total Orders',
+        'revenue' => 'Revenue in this month',
+        'monthlyOrder' => 'Monthly ORDER statistics',
+        'monthlyProduct' => 'Monthly PRODUCT statistics',
+        'statistics' => 'Statistics',
+    ],
+
+    'email' => [
+        'dear' => 'Dear ',
+        'content' => 'This is automatic email weekly. You have some orders in PENDING. Please check them.',
+        'number' => 'Number of pending orders: ',
+        'button' => 'CHECK ORDERS',
     ],
 ];

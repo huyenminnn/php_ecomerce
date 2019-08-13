@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\InfoDelivery\InfoDeliveryRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class UserController extends Controller
 {
     protected $userRepo;
+    protected $infoDeliveryRepo;
 
-    public function __construct(UserRepositoryInterface $userRepo)
+    public function __construct(UserRepositoryInterface $userRepo, InfoDeliveryRepositoryInterface $infoDeliveryRepo)
     {
-        $this->uesrRepo = $userRepo;
+        $this->userRepo = $userRepo;
+        $this->infoDeliveryRepo = $infoDeliveryRepo;
     }
     /**
      * Display a listing of the resource.
@@ -50,10 +55,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        $user = $this->userRepo->findById($id);
-        return $user;
+        $user = Auth::user();
+        $infoDelivery = $user->infoDeliveries;
+
+        return view('shopping_views.profile', ['user' => $user, 'infoDelivery' => $infoDelivery]);
     }
 
     /**
@@ -62,9 +69,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        $user = Auth::user();
+        $infoDelivery = $user->infoDeliveries;
+
+        return view('shopping_views.edit_profile', ['user' => $user]);
     }
 
     /**
@@ -74,9 +84,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $dataUpdate = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+        ];
+
+        $this->userRepo->update($user, $dataUpdate);
+
+        return redirect()->route('shop.showProfile');
     }
 
     /**
@@ -88,5 +108,23 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function showChangePass()
+    {
+        return view('shopping_views.change_password');
+    }
+
+    public function changePass(Request $request)
+    {
+        $user = Auth::user();
+        if ($request->newPass && $request->newPass == $request->confirmPass) {
+            $dataUpdate = ['password' => Hash::make($request->newPass)];
+            $this->userRepo->update($user, $dataUpdate);
+
+            return redirect()->route('shop.showProfile');
+        } else {
+            return redirect()->route('shop.showChangePassword');
+        }
     }
 }

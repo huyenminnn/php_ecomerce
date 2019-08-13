@@ -91,6 +91,15 @@ return [
         'errorEmail' => 'Enter your email',
         'errorPass' => 'Enter password',
         'forgetPass' => 'Forgot Your Password?',
+        'profile' => 'Profile',
+        'editProfile' => 'Edit Profile',
+        'changePassword' => 'Change Password ',
+        'addInfo' => 'Add Info Delivery',
+        'submit' => 'Submit',
+        'info' => 'Info Delivery',
+        'note' => 'Note',
+        'newPass' => 'New Password',
+        'confirmPass' => 'Confirm Password',
     ],
 
     'history' => [
