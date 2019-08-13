@@ -21,6 +21,11 @@ class AppServiceProvider extends ServiceProvider
         );
 
         $this->app->singleton(
+            \App\Repositories\ProductDetail\ProductDetailRepositoryInterface::class,
+            \App\Repositories\ProductDetail\ProductDetailRepository::class
+        );
+
+        $this->app->singleton(
             \App\Repositories\Category\CategoryRepositoryInterface::class,
             \App\Repositories\Category\CategoryRepository::class
         );
@@ -38,6 +43,21 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(
             \App\Repositories\User\UserRepositoryInterface::class,
             \App\Repositories\User\UserRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\InfoDelivery\InfoDeliveryRepositoryInterface::class,
+            \App\Repositories\InfoDelivery\InfoDeliveryRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\Order\OrderRepositoryInterface::class,
+            \App\Repositories\Order\OrderRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\OrderDetail\OrderDetailRepositoryInterface::class,
+            \App\Repositories\OrderDetail\OrderDetailRepository::class
         );
     }
 

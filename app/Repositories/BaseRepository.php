@@ -36,6 +36,13 @@ abstract class BaseRepository implements RepositoryInterface
         return $result;
     }
 
+    public function findOrFail($id)
+    {
+        $result = $this->model->findOrFail($id);
+
+        return $result;
+    }
+
     public function find($data = [])
     {
         $result = $this->model->where($data)->get();

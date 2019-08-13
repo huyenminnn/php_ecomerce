@@ -13,6 +13,8 @@ interface RepositoryInterface
 
     public function findById($id);
 
+    public function findOrFail($id);
+
     public function find($data = []);
 
     public function findFirst($data = []);
